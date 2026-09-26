@@ -126,6 +126,8 @@
 .admin-login-form input:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 3px #87dac322; }
 .admin-login-form .contact-button { display: flex; width: 100%; justify-content: space-between; align-items: center; margin-top: 4px; }
 .admin-login-form button:disabled { cursor: wait; opacity: .7; }
+.admin-password-reset-link { justify-self: start; padding: 0; border: 0; background: none; color: var(--accent); font: 500 10px 'IBM Plex Mono',monospace; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.admin-password-reset-link:disabled { cursor: wait; opacity: .7; }
 .admin-login-security { margin: 19px 0 0; font-size: 9px; letter-spacing: .04em; line-height: 1.6; }
 .admin-login-notice { max-width: 410px; margin: 0 0 20px; padding: 12px 14px; border: 1px solid #fb9f8177; border-radius: 5px; background: #f57d2810; color: #ffb39b; font-size: 13px; line-height: 1.5; }
 .admin-login-back { width: fit-content; color: var(--muted); text-decoration: none; }

@@ -1,0 +1,100 @@
+.admin-toolbar { margin-bottom: 22px; }
+.admin-toolbar > div { display: flex; align-items: center; gap: 18px; }
+.admin-toolbar > div > a { color: var(--accent); font: 500 10px 'IBM Plex Mono', monospace; letter-spacing: .06em; }
+.admin-cms { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; align-items: start; }
+.admin-cms-nav { position: sticky; top: 20px; display: grid; gap: 6px; padding: 14px; border: 1px solid #90c8bd44; border-radius: 7px; background: linear-gradient(155deg, #112c36, #0b2028); }
+.admin-cms-nav__label { padding: 8px 10px 12px; color: #819d98; font: 500 9px 'IBM Plex Mono', monospace; letter-spacing: .15em; }
+.admin-cms-nav button { display: flex; min-height: 44px; align-items: center; gap: 12px; padding: 0 10px; border: 1px solid transparent; border-radius: 4px; background: transparent; color: #c2d5d1; text-align: left; font: 500 12px Manrope, Arial, sans-serif; cursor: pointer; }
+.admin-cms-nav button:hover { border-color: #90c8bd44; background: #ffffff08; color: var(--text); }
+.admin-cms-nav button.is-active { border-color: #5ee2c233; background: #5ee2c216; color: var(--accent); }
+.admin-cms-nav__index { color: #77908d; font: 500 9px 'IBM Plex Mono', monospace; }
+.admin-cms-nav__badge { display: grid; min-width: 20px; height: 20px; place-items: center; margin-left: auto; border-radius: 99px; background: #5ee2c2; color: #08221e; font: 600 10px 'IBM Plex Mono', monospace; }
+.admin-cms-nav__footer { margin: 20px 10px 4px; padding-top: 14px; border-top: 1px solid #90c8bd33; color: #77908d; font: 500 8px/1.8 'IBM Plex Mono', monospace; letter-spacing: .09em; }
+.admin-cms-content { min-width: 0; }
+.admin-cms-heading { display: flex; min-height: 66px; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; padding: 0 2px 15px; border-bottom: 1px solid #90c8bd44; }
+.admin-cms-heading p { margin-bottom: 7px; color: #819d98; font: 500 9px 'IBM Plex Mono', monospace; letter-spacing: .13em; }
+.admin-cms-heading h2 { color: var(--text); font-size: 25px; letter-spacing: -.04em; }
+.admin-cms-heading > span { padding: 7px 9px; border: 1px solid #5ee2c244; border-radius: 3px; color: var(--accent); font: 500 8px 'IBM Plex Mono', monospace; letter-spacing: .1em; white-space: nowrap; }
+.admin-cms-content > .admin-notice { margin: 0 0 18px; }
+.admin-verifying { display: flex; width: fit-content; align-items: center; gap: 11px; margin: 6px 0; padding: 13px 16px; border: 1px solid #5ee2c244; border-radius: 4px; background: #5ee2c20c; color: var(--accent); font: 500 10px 'IBM Plex Mono', monospace; letter-spacing: .08em; }
+.admin-verifying__spinner { width: 14px; height: 14px; border: 2px solid #5ee2c244; border-top-color: var(--accent); border-radius: 50%; animation: admin-verify-spin .8s linear infinite; }
+@keyframes admin-verify-spin { to { transform: rotate(360deg); } }
+.admin-cms-content > .admin-section { margin-top: 0; }
+.admin-cms-content > .admin-section + .admin-section { margin-top: 22px; }
+.admin-cms-panel { padding: 20px; border: 1px solid #90c8bd44; border-radius: 6px; background: #0e252e; }
+.admin-cms-panel h2 { margin-bottom: 18px; }
+.admin-dashboard-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.admin-dashboard-stats article { display: grid; min-height: 130px; align-content: space-between; gap: 12px; padding: 17px; border: 1px solid #90c8bd44; border-radius: 6px; background: linear-gradient(145deg, #112c36, #0c2028); }
+.admin-dashboard-stats span { color: #92aaa6; font: 500 9px 'IBM Plex Mono', monospace; letter-spacing: .1em; }
+.admin-dashboard-stats strong { color: var(--text); font-size: 30px; letter-spacing: -.06em; }
+.admin-dashboard-stats small { color: var(--muted); font-size: 11px; }
+.admin-dashboard-quick { display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; margin-top: 18px; padding: 22px; border: 1px solid #90c8bd44; border-radius: 6px; background: #0e252e; }
+.admin-dashboard-quick h3 { margin: 8px 0; font-size: 20px; letter-spacing: -.04em; }
+.admin-dashboard-quick p:not(.section-kicker) { color: var(--muted); font-size: 12px; line-height: 1.7; }
+.admin-dashboard-quick > div:last-child { display: grid; }
+.admin-dashboard-quick button { display: flex; justify-content: space-between; gap: 12px; padding: 13px 2px; border: 0; border-bottom: 1px solid #90c8bd33; background: transparent; color: var(--text); text-align: left; font: 500 10px 'IBM Plex Mono', monospace; cursor: pointer; }
+.admin-dashboard-quick button:hover { color: var(--accent); }
+.admin-cms-content .cv-builder { margin-top: 0; padding: 20px; border: 1px solid #90c8bd44; border-radius: 6px; background: #0e252e; }
+.admin-panel-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 18px; }
+.admin-panel-heading h2 { margin: 0 0 7px; }
+.admin-panel-heading p,.admin-users-note { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.admin-panel-heading > span { padding: 7px 9px; border: 1px solid #90c8bd44; border-radius: 3px; color: #bdd3cf; font: 500 9px 'IBM Plex Mono', monospace; white-space: nowrap; }
+.admin-user-invite { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 12px; max-width: 680px; margin: 22px 0 12px; }
+.admin-user-invite label { display: grid; gap: 7px; color: #bfd3cf; font: 500 10px 'IBM Plex Mono', monospace; letter-spacing: .04em; }
+.admin-user-invite input { width: 100%; min-height: 46px; padding: 11px 12px; border: 1px solid #8abcb777; border-radius: 4px; background: #102832; color: var(--text); font: 14px Manrope,Arial,sans-serif; }
+.admin-user-invite .contact-button { min-width: 140px; padding: 14px 16px; }
+.admin-users-note { margin: 10px 0 20px; }
+.admin-data-table-wrap { width: 100%; overflow-x: auto; border: 1px solid #90c8bd33; border-radius: 5px; }
+.admin-data-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 11px; }
+.admin-data-table th { padding: 12px 13px; border-bottom: 1px solid #90c8bd44; color: #92aaa6; background: #091c23; font: 500 8px 'IBM Plex Mono',monospace; letter-spacing: .1em; white-space: nowrap; }
+.admin-data-table td { padding: 13px; border-bottom: 1px solid #90c8bd22; color: #c7d8d4; vertical-align: middle; white-space: nowrap; }
+.admin-data-table tbody tr:last-child td { border-bottom: 0; }
+.admin-data-table td strong { display: block; color: var(--text); font-size: 11px; font-weight: 600; }
+.admin-data-table td small { display: block; max-width: 220px; margin-top: 4px; overflow: hidden; color: #829c98; font: 9px 'IBM Plex Mono',monospace; text-overflow: ellipsis; }
+.admin-role-pill,.admin-status-pill { display: inline-block; padding: 5px 8px; border: 1px solid #90c8bd44; border-radius: 99px; color: #c2d5d1; font: 500 8px 'IBM Plex Mono',monospace; text-transform: uppercase; }
+.admin-role-pill--owner { border-color: #5ee2c266; color: var(--accent); }
+.admin-status-pill--active { border-color: #79cf9a55; color: #96eab3; }
+.admin-status-pill--invited { border-color: #ffd58b55; color: #f8d595; }
+.admin-danger-button { padding: 8px 10px; border-color: #ff9c8666; color: #ffab98; font-size: 8px; }
+.admin-danger-button:hover { border-color: #ff9c86; background: #ff9c8614; }
+.admin-table-empty { padding: 18px 4px; color: var(--muted); font-size: 12px; }
+.admin-audit-action { display: inline-block; padding: 6px 8px; border: 1px solid #5ee2c233; border-radius: 3px; color: var(--accent); font: 500 9px 'IBM Plex Mono',monospace; text-transform: uppercase; }
+.admin-audit-table td small { max-width: 240px; }
+.admin-audit-pagination { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 15px; color: var(--muted); font: 10px 'IBM Plex Mono',monospace; }
+.admin-audit-pagination > div { display: flex; gap: 8px; }
+.admin-audit-pagination .outline-button { padding: 8px 10px; font-size: 8px; }
+.admin-audit-pagination button:disabled { cursor: not-allowed; opacity: .45; }
+.admin-password-form { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px; max-width: 680px; margin-top: 20px; }
+.admin-password-form label { display: grid; gap: 7px; color: #bfd3cf; font: 500 10px 'IBM Plex Mono',monospace; letter-spacing: .04em; }
+.admin-password-form input { width: 100%; min-height: 46px; padding: 11px 12px; border: 1px solid #8abcb777; border-radius: 4px; background: #102832; color: var(--text); font: 14px Manrope,Arial,sans-serif; }
+.admin-password-form .contact-button { grid-column: 1 / -1; justify-self: start; min-width: 180px; padding: 14px 16px; }
+.admin-password-form > p { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.admin-account-email { margin: 18px 0; color: var(--accent); font: 12px 'IBM Plex Mono',monospace; }
+.admin-user-actions { flex-wrap: nowrap; }
+.admin-user-actions .outline-button { padding: 8px 9px; font-size: 8px; white-space: nowrap; }
+
+@media (max-width: 900px) {
+  .admin-cms { grid-template-columns: 1fr; gap: 16px; }
+  .admin-cms-nav { position: static; display: flex; gap: 5px; padding: 8px; overflow-x: auto; }
+  .admin-cms-nav__label,.admin-cms-nav__footer { display: none; }
+  .admin-cms-nav button { flex: 0 0 auto; }
+  .admin-cms-nav__index { display: none; }
+}
+
+@media (max-width: 600px) {
+  .admin-toolbar { align-items: flex-start; }
+  .admin-toolbar > div { width: 100%; justify-content: space-between; }
+  .admin-cms-nav { margin-right: -4px; }
+  .admin-cms-nav button { min-height: 40px; padding: 0 9px; font-size: 10px; }
+  .admin-cms-heading h2 { font-size: 21px; }
+  .admin-cms-heading > span { font-size: 7px; }
+  .admin-cms-panel,.admin-cms-content .cv-builder,.admin-dashboard-quick { padding: 15px; }
+  .admin-dashboard-quick { grid-template-columns: 1fr; }
+  .admin-dashboard-stats article { min-height: 112px; padding: 13px; }
+  .admin-user-invite { grid-template-columns: 1fr; }
+  .admin-user-invite .contact-button { width: 100%; }
+  .admin-panel-heading { align-items: center; }
+  .admin-audit-pagination { align-items: flex-start; flex-direction: column; }
+  .admin-password-form { grid-template-columns: 1fr; }
+  .admin-password-form .contact-button,.admin-password-form > p { grid-column: 1; }
+}

@@ -26,7 +26,7 @@ export class AdminGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     if (!this.authClient) throw new ServiceUnavailableException('Authentication is not configured')
 
-    const request = context.switchToHttp().getRequest<Request & { adminUserId?: string; adminAccessToken?: string }>()
+    const request = context.switchToHttp().getRequest<Request & { adminUserId?: string; adminUserEmail?: string; adminRole?: 'owner' | 'admin'; adminAccessToken?: string }>()
     const authorization = request.headers.authorization
     const token = authorization?.match(/^Bearer\s+(.+)$/i)?.[1]
     if (!token) throw new UnauthorizedException('Bearer token required')
@@ -35,10 +35,12 @@ export class AdminGuard implements CanActivate {
     if (error || !data.user) throw new UnauthorizedException('Invalid or expired token')
 
     const [membership] = await this.database.sql`
-      select 1 from public.site_admins where user_id = ${data.user.id}::uuid limit 1
+      select role from public.site_admins where user_id = ${data.user.id}::uuid limit 1
     `
     if (!membership) throw new ForbiddenException('Admin access required')
     request.adminUserId = data.user.id
+    request.adminUserEmail = data.user.email ?? data.user.id
+    request.adminRole = membership.role
     request.adminAccessToken = token
     return true
   }

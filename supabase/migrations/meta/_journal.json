@@ -71,6 +71,20 @@
       "when": 1790432321245,
       "tag": "0009_steep_carnage",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1790438317242,
+      "tag": "0010_premium_kate_bishop",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1790438340693,
+      "tag": "0011_melodic_white_queen",
+      "breakpoints": true
     }
   ]
 }

@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm'
 import { anonRole, authUsers, authenticatedRole } from 'drizzle-orm/supabase'
-import { boolean, check, integer, jsonb, pgPolicy, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { boolean, check, index, integer, jsonb, pgPolicy, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 
 export const contactMessages = pgTable('contact_messages', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -96,14 +96,32 @@ export const cvProfiles = pgTable('cv_profiles', {
 
 export const siteAdmins = pgTable('site_admins', {
   userId: uuid('user_id').primaryKey().references(() => authUsers.id, { onDelete: 'cascade' }),
+  role: text('role').notNull().default('admin'),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
 }, (table) => [
+  check('site_admins_role_valid', sql`role in ('owner', 'admin')`),
   pgPolicy('Admins can read their own membership', {
     for: 'select',
     to: authenticatedRole,
     using: sql`user_id = (select auth.uid())`,
   }),
-])
+]).enableRLS()
+
+export const adminAuditLogs = pgTable('admin_audit_logs', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  actorUserId: uuid('actor_user_id').notNull(),
+  actorEmail: text('actor_email').notNull(),
+  action: text('action').notNull(),
+  entity: text('entity').notNull(),
+  entityId: text('entity_id'),
+  metadata: jsonb('metadata').notNull().default(sql`'{}'::jsonb`),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+}, (table) => [
+  check('admin_audit_logs_action_length', sql`char_length(action) between 1 and 100`),
+  check('admin_audit_logs_entity_length', sql`char_length(entity) between 1 and 80`),
+  check('admin_audit_logs_actor_email_length', sql`char_length(actor_email) between 3 and 254`),
+  index('admin_audit_logs_created_at_idx').on(table.createdAt),
+]).enableRLS()
 
 export const projects = pgTable('projects', {
   id: uuid('id').primaryKey().defaultRandom(),

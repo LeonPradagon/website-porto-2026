@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Inject, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Inject, Param, ParseUUIDPipe, Post, Put, Req, UseGuards } from '@nestjs/common'
+import type { Request } from 'express'
 import { AdminGuard } from '../auth/admin.guard'
 import { ProjectsService, validateProjectInput } from './projects.service'
 
@@ -47,7 +48,7 @@ export class AdminProjectsController {
 @UseGuards(AdminGuard)
 export class AdminController {
   @Get('me')
-  checkAccess() {
-    return { authorized: true }
+  checkAccess(@Req() request: Request & { adminUserId?: string; adminUserEmail?: string; adminRole?: 'owner' | 'admin' }) {
+    return { authorized: true, user_id: request.adminUserId, email: request.adminUserEmail, role: request.adminRole }
   }
 }
