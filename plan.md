@@ -60,8 +60,8 @@ Sumber: [PRD.md](./PRD.md) dan [portofolio lama](https://portofolio-jet-six.verc
 ### 4. Kontak dan CV
 
 - [ ] Formulir kontak tervalidasi, anti-spam, penyimpanan pesan, dan inbox admin.
-- [ ] Builder CV satu sumber data dengan preview dan versi terbit.
-- [ ] PDF A4 satu kolom dengan teks yang dapat dipilih.
+- [x] Builder CV satu sumber data dengan preview dan versi terbit.
+- [x] PDF A4 satu kolom dengan teks yang dapat dipilih melalui print stylesheet.
 
 ### 5. Rilis
 

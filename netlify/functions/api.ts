@@ -13,7 +13,7 @@ async function createHandler() {
   })
 
   await app.init()
-  return serverless(server) as unknown as (
+  return serverless(server, { basePath: '/api' }) as unknown as (
     event: HandlerEvent,
     context: HandlerContext,
   ) => Promise<HandlerResponse>

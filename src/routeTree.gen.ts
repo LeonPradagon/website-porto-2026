@@ -11,7 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as EnRouteImport } from './routes/en'
+import { Route as ResumeRouteImport } from './routes/resume'
+import { Route as EnIndexRouteImport } from './routes/en.index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
+import { Route as EnProjectsSlugRouteImport } from './routes/en.projects.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,39 +27,93 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnRoute = EnRouteImport.update({
+  id: '/en',
+  path: '/en',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResumeRoute = ResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnIndexRoute = EnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EnRoute,
+} as any)
 const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   id: '/projects/$slug',
   path: '/projects/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnProjectsSlugRoute = EnProjectsSlugRouteImport.update({
+  id: '/projects/$slug',
+  path: '/projects/$slug',
+  getParentRoute: () => EnRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/en': typeof EnRouteWithChildren
+  '/resume': typeof ResumeRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/en/': typeof EnIndexRoute
+  '/en/projects/$slug': typeof EnProjectsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/resume': typeof ResumeRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/en': typeof EnIndexRoute
+  '/en/projects/$slug': typeof EnProjectsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/en': typeof EnRouteWithChildren
+  '/resume': typeof ResumeRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/en/': typeof EnIndexRoute
+  '/en/projects/$slug': typeof EnProjectsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/projects/$slug'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/en'
+    | '/resume'
+    | '/projects/$slug'
+    | '/en/'
+    | '/en/projects/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/projects/$slug'
-  id: '__root__' | '/' | '/admin' | '/projects/$slug'
+  to:
+    | '/'
+    | '/admin'
+    | '/resume'
+    | '/projects/$slug'
+    | '/en'
+    | '/en/projects/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/en'
+    | '/resume'
+    | '/projects/$slug'
+    | '/en/'
+    | '/en/projects/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  EnRoute: typeof EnRouteWithChildren
+  ResumeRoute: typeof ResumeRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
 }
 
@@ -75,6 +133,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en': {
+      id: '/en'
+      path: '/en'
+      fullPath: '/en'
+      preLoaderRoute: typeof EnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resume': {
+      id: '/resume'
+      path: '/resume'
+      fullPath: '/resume'
+      preLoaderRoute: typeof ResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/en/': {
+      id: '/en/'
+      path: '/'
+      fullPath: '/en/'
+      preLoaderRoute: typeof EnIndexRouteImport
+      parentRoute: typeof EnRoute
+    }
     '/projects/$slug': {
       id: '/projects/$slug'
       path: '/projects/$slug'
@@ -82,12 +161,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/en/projects/$slug': {
+      id: '/en/projects/$slug'
+      path: '/projects/$slug'
+      fullPath: '/en/projects/$slug'
+      preLoaderRoute: typeof EnProjectsSlugRouteImport
+      parentRoute: typeof EnRoute
+    }
   }
 }
+
+interface EnRouteChildren {
+  EnIndexRoute: typeof EnIndexRoute
+  EnProjectsSlugRoute: typeof EnProjectsSlugRoute
+}
+
+const EnRouteChildren: EnRouteChildren = {
+  EnIndexRoute: EnIndexRoute,
+  EnProjectsSlugRoute: EnProjectsSlugRoute,
+}
+
+const EnRouteWithChildren = EnRoute._addFileChildren(EnRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  EnRoute: EnRouteWithChildren,
+  ResumeRoute: ResumeRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
 }
 export const routeTree = rootRouteImport

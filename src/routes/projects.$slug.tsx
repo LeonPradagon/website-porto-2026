@@ -1,73 +1,43 @@
-import { createFileRoute, notFound } from '@tanstack/react-router'
-import { projects } from '../data/portfolio'
-import type { PortfolioProject } from '../data/portfolio'
-import { supabase } from '../lib/supabase'
+import { createFileRoute } from '@tanstack/react-router'
+import { ProjectDetailPage } from '../components/ProjectDetailPage'
+import { loadPublicProject } from '../lib/public-projects'
+import { projectForLocale } from '../lib/i18n'
 
 const siteUrl = import.meta.env.VITE_SITE_URL?.replace(/\/$/, '')
 
 export const Route = createFileRoute('/projects/$slug')({
-  loader: async ({ params }) => {
-    const fallback = projects.find(({ slug }) => slug === params.slug)
-    if (supabase) {
-      const { data, error } = await supabase.from('projects').select('slug,title,category,description,stack,image_url,repository_url,editorial').eq('slug', params.slug).eq('status', 'published').maybeSingle()
-      if (!error) {
-        if (!data) throw notFound()
-        return {
-          slug: data.slug,
-          title: data.title,
-          category: data.category as PortfolioProject['category'],
-          description: data.description,
-          stack: data.stack as string[],
-          image: data.image_url,
-          href: data.repository_url,
-          editorial: data.editorial,
-        }
-      }
-    }
-    const project = fallback
-    if (!project) throw notFound()
-    return project
-  },
+  loader: async ({ params }) => projectForLocale(await loadPublicProject(params.slug), 'id'),
   head: ({ loaderData }) => {
     if (!loaderData) return { meta: [] }
-    return { meta: [
-      { title: `${loaderData.title} — Jhansen Wilson` },
-      { name: 'description', content: loaderData.description },
-      { property: 'og:type', content: 'article' },
-      { property: 'og:title', content: `${loaderData.title} — Jhansen Wilson` },
-      { property: 'og:description', content: loaderData.description },
-      ...(siteUrl ? [{ property: 'og:image', content: `${siteUrl}${loaderData.image}` }] : []),
-    ] }
+    const title = `${loaderData.title} — Proyek Full-Stack Jhansen Wilson`
+    const image = loaderData.image.startsWith('https://') ? loaderData.image : siteUrl ? `${siteUrl}${loaderData.image}` : undefined
+    const canonical = siteUrl ? `${siteUrl}/projects/${encodeURIComponent(loaderData.slug)}` : undefined
+    return {
+      meta: [
+        { title },
+        { name: 'description', content: loaderData.description },
+        { property: 'og:type', content: 'article' },
+        { property: 'og:site_name', content: 'Jhansen Wilson' },
+        { property: 'og:locale', content: 'id_ID' },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: loaderData.description },
+        ...(image ? [{ property: 'og:image', content: image }, { property: 'og:image:alt', content: `Tampilan proyek ${loaderData.title}` }, { name: 'twitter:image', content: image }] : []),
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: title },
+        { name: 'twitter:description', content: loaderData.description },
+      ],
+      links: [
+        ...(canonical ? [{ rel: 'canonical', href: canonical }] : []),
+        ...(siteUrl ? [
+          { rel: 'alternate', hrefLang: 'id', href: `${siteUrl}/projects/${encodeURIComponent(loaderData.slug)}` },
+          { rel: 'alternate', hrefLang: 'en', href: `${siteUrl}/en/projects/${encodeURIComponent(loaderData.slug)}` },
+        ] : []),
+      ],
+    }
   },
   component: ProjectDetail,
 })
 
 function ProjectDetail() {
-  const project = Route.useLoaderData()
-
-  return (
-    <main className="project-detail">
-      <nav className="project-detail__nav" aria-label="Breadcrumb">
-        <a href="/#atas">JW<span>.</span></a>
-        <span>/</span>
-        <a href="/#karya">PROJECTS</a>
-        <span>/</span>
-        <span>{project.title}</span>
-      </nav>
-      <header className="project-detail__header">
-        <p className="section-kicker">{project.category} / PROJECT</p>
-        <h1>{project.title}</h1>
-        <p>{project.description}</p>
-        {project.editorial && <p className="project-detail__notice">Visual editorial — tangkapan layar produk belum tersedia.</p>}
-      </header>
-      <figure className="project-detail__media">
-        <img src={project.image} alt={project.editorial ? `Visual editorial untuk ${project.title}` : `Tampilan ${project.title}`} />
-      </figure>
-      <section className="project-detail__meta" aria-labelledby="stack-title">
-        <div><h2 id="stack-title">TECH STACK</h2><ul>{project.stack.map((item) => <li key={item}>{item}</li>)}</ul></div>
-        <a className="contact-button" href={project.href} target="_blank" rel="noreferrer">VIEW SOURCE CODE ↗</a>
-      </section>
-      <a className="project-detail__back" href="/#karya">← BACK TO ALL PROJECTS</a>
-    </main>
-  )
+  return <ProjectDetailPage project={Route.useLoaderData()} locale="id" />
 }

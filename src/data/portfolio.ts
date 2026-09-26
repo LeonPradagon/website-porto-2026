@@ -3,10 +3,15 @@ export type PortfolioProject = {
   title: string
   category: 'Professional' | 'Personal'
   description: string
+  role?: string
+  year?: number | null
   stack: string[]
   image: string
+  imageAlt?: string
   href: string
+  demoUrl?: string | null
   editorial: boolean
+  featured?: boolean
 }
 
 export const projects: PortfolioProject[] = [
@@ -20,11 +25,11 @@ export const projects: PortfolioProject[] = [
 ]
 
 export const services = [
-  { title: 'Frontend Development', description: 'Antarmuka web responsif dan mudah dipakai dengan React, Next.js, dan Tailwind CSS.' },
-  { title: 'Backend & API', description: 'Logika aplikasi, REST API, dan integrasi sistem menggunakan Node.js, Express, dan Python.' },
-  { title: 'Data & Database', description: 'Model data dan kebutuhan aplikasi dengan PostgreSQL, MySQL, dan SQL Server.' },
-  { title: 'AI Integration', description: 'Fitur berbasis LLM API dan Retrieval-Augmented Generation untuk alur kerja nyata.' },
-  { title: 'Deployment & Delivery', description: 'Git, CI/CD, Linux server, dan deployment VPS untuk membawa produk ke produksi.' },
+  { title: 'Pengembangan Frontend', description: 'Membangun antarmuka web responsif dan mudah digunakan dengan React, Next.js, dan Tailwind CSS.' },
+  { title: 'Backend dan API', description: 'Mengembangkan logika aplikasi, REST API, dan integrasi sistem dengan Node.js, Express, dan Python.' },
+  { title: 'Database dan Pengelolaan Data', description: 'Merancang model data dan menghubungkan aplikasi ke PostgreSQL, MySQL, dan SQL Server.' },
+  { title: 'Integrasi AI', description: 'Mengintegrasikan LLM API dan Retrieval-Augmented Generation untuk mendukung alur kerja aplikasi.' },
+  { title: 'Deployment Aplikasi', description: 'Menyiapkan Git, CI/CD, Linux server, dan deployment VPS untuk merilis aplikasi.' },
 ]
 
-export const aboutText = 'Full-Stack Developer dengan pengalaman lebih dari dua tahun membangun aplikasi web dan solusi perusahaan. Saya bekerja dari antarmuka hingga backend, mengintegrasikan AI saat memberi manfaat nyata, dan saat ini berkontribusi pada inisiatif digital di PT Asia Sistem Indonesia.'
+export const aboutText = 'Saya adalah full-stack developer dengan pengalaman lebih dari dua tahun membangun aplikasi web dan sistem perusahaan. Saya mengerjakan antarmuka, backend, API, dan integrasi AI, serta saat ini berkontribusi pada inisiatif digital di PT Asia Sistem Indonesia.'
