@@ -5,6 +5,7 @@ publish = "dist/client"
 [functions]
 directory = "netlify/functions"
 node_bundler = "esbuild"
+external_node_modules = ["@nestjs/common", "@nestjs/core", "@nestjs/platform-express", "express", "postgres", "reflect-metadata", "rxjs", "serverless-http"]
 
 [[redirects]]
 from = "/api/*"
