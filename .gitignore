@@ -4,3 +4,8 @@ dist
 .netlify
 .tanstack
 *.local
+.env
+.env.*
+!.env.example
+.opencode/
+graphify-out/
